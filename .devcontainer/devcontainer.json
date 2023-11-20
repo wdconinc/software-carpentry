@@ -1,7 +1,17 @@
 {
     "image": "rootproject/root:6.28.00-ubuntu22.04",
+    "runArgs": [
+        "--entrypoint", "/bin/sh"
+    ],
     "hostRequirements": {
         "cpus": 2
+    },
+    "waitFor": "onCreateCommand",
+    "updateContentCommand": {
+        "Installing apt packages": "sudo apt-get -yqq update && sudo apt-get install -yqq python3-pip python3-xrootd"
+    },
+    "postCreateCommand": {
+        "Installing python packages": "python3 -m pip install wheel jupyter metakernel dask distributed pyspark"
     },
     "customizations": {
         "vscode": {
